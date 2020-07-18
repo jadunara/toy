@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue js components Communication</title>
+</head>
+<body>
+
+<div id="app">
+    <child :value="value" @update="onChildUpdate">
+	</child>
+	<br /><br /><br /><br /><br /><br />
+	app 영역 this.value : {{value}}<br/>
+	<button @click="parentClick();">Parent 에서 클릭</button>
+</div>
+
+<br /><br /><br /><br /><br /><br />
+<template id="child">
+<div >
+ <div>child values -> {{values}}</div>
+ <div>child valueChild -> {{valueChild}}</div>
+  <button @click="childClick();">Child 에서 클릭</button>
+  <button v-on:click="showLog">show</button>
+</div>
+</template>
+</body>
+<!-- <script type="text/javascript" src="../../js/vuejs/vue.v2.5.16.js"></script> -->
+<script type="text/javascript" src="../../js/vuejs/vue.js"></script>
+<script type="text/javascript" src="vue.main.js"></script>
+
+</html>

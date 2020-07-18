@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue js components Communication</title>
+</head>
+<body>
+
+
+<div id="app">
+	<button onclick="window.location.href='./vue_component_communication2.html'">새로고침</button>
+	<br /><br/><br /><br/><br />
+  <router-view></router-view>  
+  <router-view name="sub"></router-view>
+</div>
+<script type="javascript/x-template" id="foo">
+<div>
+	<div>f1 : {{f1}}</div>
+	<div>f2 : {{f2}}</div>
+	<button @click="click1();" >app Click</button>
+</div>
+</script>
+<br /><br /><br /><br /><br /><br />
+<script type="javascript/x-template" id="child">
+<div>
+	<br /><br /><span>sub button</span>
+	<div>f1 : {{f1}}</div>
+	<div>f2 : {{f2}}</div>
+	<button @click="click1();">child app Click</button>
+</div>
+</script>
+<!-- <template id="child"> -->
+<!-- 	<button @click="click1();">child app Click</button> -->
+<!-- </template> -->
+
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="../../js/vuejs/vue.v2.5.16.js"></script> -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+<script type="text/javascript" src="vue.main2.js"></script>
+
+</html>
