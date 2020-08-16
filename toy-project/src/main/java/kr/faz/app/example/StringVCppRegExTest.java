@@ -11,7 +11,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import kr.faz.app.utils.CppCStringUtils;
-import kr.faz.app.utils.RegexpUtils;
 import kr.faz.app.utils.SQLUtils;
 
 public class StringVCppRegExTest {
