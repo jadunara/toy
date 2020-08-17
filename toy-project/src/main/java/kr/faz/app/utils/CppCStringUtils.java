@@ -58,10 +58,38 @@ public class CppCStringUtils {
 		s = replace_T(s , list);
 		return s;
 	}
+	public static List<String> getRegExp_List_T(String s) {
+		String prefix = "_T(.*?)\\((.*?)\"" ;
+		String subfix = "\"(.*?)\\)";
+		List<String> list =  RegexpUtils.regex( s,  "(" + prefix +"(.*?)" +  subfix + ")" );
+		return list;
+	}
+
+	public static String replace_word_T( String s ) {
+		s = s.substring(s.indexOf( "\"")   );
+		s = s.substring( 0 , s.lastIndexOf("\"") +1 );
+		return s;
+	}
+
+	public static String replace_word_Left(String s ) {
+		s = s.replace("Left", "substr");
+		s = s.replace("(", "( 0 , ");
+		return s;
+	}
+	public static String replace_word_Mid(String s ) {
+		s = s.replace("Mid", "substr");
+		return s;
+	}
+	public static String replace_word_Mask(String s ) {
+		s = s.replace("Mask", "Mask");//TODO
+		return s;
+	}
+
 	public static String replace_T(String s, List<String> list) {
 		if ( list.size() == 0 ) {
 			return s;
 		}
+
 		for ( int i = 0; i < list.size(); i++ ) {
 			String x = list.get(i);
 			int spos = s.indexOf(x);
@@ -78,23 +106,38 @@ public class CppCStringUtils {
 		}
 		return s;
 	}
+
 	public static String regex_Left(String s) {
-		String prefix = "\\.Left" ;
-		String subfix = "(.*?)\\)";
-		List<String> list =  RegexpUtils.regex( s,  "(" + prefix +"(.*?)" +  subfix + ")" );
+		List<String> list = getRegex_List_Left(s);
 		s = replace_Left(s , list);
-//		System.out.println("Left > " + list);
 		return s;
 	}
 
-	public static String regex_Mid(String s) {
+	public static List<String> getRegex_List_Left(String s) {
+		String prefix = "\\.Left" ;
+		String subfix = "(.*?)\\)";
+		List<String> list =  RegexpUtils.regex( s,  "(" + prefix +"(.*?)" +  subfix + ")" );
+		return list;
+	}
+
+	public static List<String> getRegex_List_Mid(String s) {
 		String prefix = "\\.Mid" ;
 		String subfix = "(.*?)\\)";
 		List<String> list =  RegexpUtils.regex( s,  "(" + prefix +"(.*?)" +  subfix + ")" );
+		return list;
+	}
+	public static List<String> getMask(String s){
+		List<String> list = null;
+		
+		return list;
+	}
+
+	public static String regex_Mid(String s) {
+		List<String> list =  getRegex_List_Mid(s);
 		s = replace_Mid(s , list);
-//		System.out.println("Mid > " + list);
 		return s;
 	}
+
 	public static String replace_Left(String s, List<String> list) {
 		if ( list.size() == 0 ) {
 			return s;
@@ -115,6 +158,7 @@ public class CppCStringUtils {
 		}
 		return s;
 	}
+
 
 	public static String replace_Mid(String s, List<String> list) {
 		if ( list.size() == 0 ) {
