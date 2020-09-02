@@ -14,13 +14,13 @@ public class SqliteUtils {
 		System.out.println(x);
 	}
 
-	/*************************
+	/**************************************************
 	 * 테이블을 조회하는 SQL.
+	 *   PRAGMA "main".TABLE_INFO("TABLE_NAME")
 	 * @param tableName
 	 * @return
-	 */
+	 **************************************************/
 	public static String getTableInfoSQL(String tableName) {
-		String s = String.format("PRAGMA \"main\".TABLE_INFO(\"%s\") ", tableName);
-		return s;
+		return String.format("PRAGMA \"main\".TABLE_INFO(\"%s\") ", tableName);
 	}
 }
