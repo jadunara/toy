@@ -44,5 +44,11 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
 <script type="text/javascript" src="vue.main2.js"></script>
+<textarea rows="5" cols="100">
+	<ul v-for="n in  ( Math.ceil( list.length /10 ))  " :key="n">
+		<li v-for="item in list.slice( (n-1)*10 , n*10-1 )" >{{ item }}</li>
+	</ul>
+</textarea>
+
 
 </html>
