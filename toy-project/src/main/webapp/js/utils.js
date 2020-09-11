@@ -34,7 +34,7 @@ var util =  {
 		return s.split(s).join(r);
 	}
 	,
-	pasteTxt : function(s) {
+	copyTxt : function(s) {
 		navigator.clipboard.writeText(s).then(function(){
 				console.log("paste success");
 			}, function(e) {
@@ -43,7 +43,7 @@ var util =  {
 		)
 	}
 	,
-	copyTxt : function(s) {
+	pasteTxt : function(s) {
 		navigator.clipboard.readText().then (clipTxt =>{
 			clipText = s;//TODO ???
 			console.log("copy success" , clipText);
