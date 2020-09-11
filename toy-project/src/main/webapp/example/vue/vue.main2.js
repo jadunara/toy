@@ -6,9 +6,26 @@ var ChildComponent = new Vue ({
 		template : "#child",
 		data : function() {
 			return {
-				value : 0
+				  value : 0
+				, list : []
 			};
-		},
+		}
+		,
+		created : function(){
+			var l = [
+					  'a0',  'b0' , 'c0' , 'd0' , 'e0' , 'f0' , 'g0' , 'h0' , 'j0' , 'k0'
+					, 'a1' , 'b1' , 'c1' , 'd1' , 'e1' , 'f1' , 'g1' , 'h1' , 'j1' , 'k1'
+					, 'a2' , 'b2' , 'c2' , 'd2' , 'e2' , 'f2' , 'g2' , 'h2' , 'j2' , 'k2'
+					, 'a3' , 'b3' , 'c3' , 'd3' , 'e3' , 'f3' , 'g3' , 'h3' , 'j3' , 'k3'
+					, 'a4' , 'b4' , 'c4' , 'd4' , 'e4' , 'f4' , 'g4' , 'h4' , 'j4' , 'k4'
+					, 'a5' , 'b5' , 'c5' , 'd5' , 'e5' , 'f5' , 'g5' , 'h5' , 'j5' , 'k5'
+					, 'a6' , 'b6' , 'c6' , 'd6' , 'e6' , 'f6' , 'g6' , 'h6' , 'j6' , 'k6'
+				]
+			;
+			console.log('l length ' , l.length);
+			this.list = l;
+		}
+		,
 		methods : {
 			setValue : function(value) {
 				console.log('child setValue value ', value);
@@ -29,6 +46,7 @@ var foo = {
 			return {
 				  f1 : "x11"
 				, f2 : "x21"
+				, list : []
 			}
 		}
 , 	methods : {
@@ -70,6 +88,19 @@ var foo = {
 //		eventBus.$on('triggerEventBus',function(data){
 //        	console.log("app  created eventBus eventName" , data); //abc cr
 //        });
+		var l = [
+			  	  'a0',  'b0' , 'c0' , 'd0' , 'e0' , 'f0' , 'g0' , 'h0' , 'j0' , 'k0'
+				, 'a1' , 'b1' , 'c1' , 'd1' , 'e1' , 'f1' , 'g1' , 'h1' , 'j1' , 'k1'
+				, 'a2' , 'b2' , 'c2' , 'd2' , 'e2' , 'f2' , 'g2' , 'h2' , 'j2' , 'k2'
+				, 'a3' , 'b3' , 'c3' , 'd3' , 'e3' , 'f3' , 'g3' , 'h3' , 'j3' , 'k3'
+				, 'a4' , 'b4' , 'c4' , 'd4' , 'e4' , 'f4' , 'g4' , 'h4' , 'j4' , 'k4'
+				, 'a5' , 'b5' , 'c5' , 'd5' , 'e5' , 'f5' , 'g5' , 'h5' , 'j5' , 'k5'
+				, 'a6' , 'b6' , 'c6' , 'd6' , 'e6' , 'f6' , 'g6' , 'h6' , 'j6' , 'k6'
+				, 'a7' , 'b7'
+			]
+		;
+		console.log('l lenght' , l.length);
+		this.list = l;
 	}
 	, updated: function() {
 		console.log("app cmp updated");

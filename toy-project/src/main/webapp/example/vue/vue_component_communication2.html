@@ -18,8 +18,14 @@
 	<div>f1 : {{f1}}</div>
 	<div>f2 : {{f2}}</div>
 	<button @click="click1();" >app Click</button>
+	<ul v-for="n in  ( Math.ceil( list.length /10 ))  " :key="n">
+		<li v-for="item in list.slice( (n-1)*10 , n*10-1 )" >{{ item }}</li>
+	</ul>
 </div>
 </script>
+1 ~  1~10 <br />
+2 ~ 11~20 <br /> 
+3 ~ 21~30 <br />
 <br /><br /><br /><br /><br /><br />
 <script type="javascript/x-template" id="child">
 <div>
@@ -27,11 +33,9 @@
 	<div>f1 : {{f1}}</div>
 	<div>f2 : {{f2}}</div>
 	<button @click="click1();">child app Click</button>
+	
 </div>
 </script>
-<!-- <template id="child"> -->
-<!-- 	<button @click="click1();">child app Click</button> -->
-<!-- </template> -->
 
 
 </body>
