@@ -16,10 +16,8 @@ var util =  {
 	}
 	,
 	isNotEmpty : function( o ) {
-		if( this.isEmpty (o))
-			return false;
-		else
-			return true;
+		if( this.isEmpty (o)) return false;
+		else return true;
 	}
 	,
 	toCamelCase : function(s) {
@@ -34,7 +32,7 @@ var util =  {
 		return s.split(s).join(r);
 	}
 	,
-	copyTxt : function(s) {
+	pasteTxt : function(s) {
 		navigator.clipboard.writeText(s).then(function(){
 				console.log("paste success");
 			}, function(e) {
@@ -43,7 +41,7 @@ var util =  {
 		)
 	}
 	,
-	pasteTxt : function(s) {
+	copyTxt : function(s) {
 		navigator.clipboard.readText().then (clipTxt =>{
 			clipText = s;//TODO ???
 			console.log("copy success" , clipText);
@@ -74,5 +72,15 @@ var util =  {
 		if( this.isEmpty(o)) return o;
 		if ( typeof o == "object" || typeof o == "array") return JSON.parse(JSON.stringify(o));
 		return o;
+	}
+	/*******************************************
+	 * 호출위치 찾기.
+	 *******************************************/
+	, getStackTrace : function(){
+		let stack = new Error().stack || '';
+		stack = stack.split('\n').map(function (line) {
+				return line.trim();
+			});
+		return stack.splice(stack[0] == 'Error' ? 2 : 1);
 	}
 }
