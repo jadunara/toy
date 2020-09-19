@@ -1,4 +1,5 @@
-var util =  {
+'use strict';
+let util =  {
 	isEmpty : function(o){
 		if ( o == null || o == undefined ) return true;
 		if (typeof o ==  "undefined" ) return true;
