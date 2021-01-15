@@ -1,0 +1,20 @@
+str.Format(_T("Left-justified VAR: %.6d\n") _T("\n\r") , 35);
+
+sql.Format( _T("SELECT SUM(ABC) AS SR ") _T("\n\r") //주석 테스트
+ _T("  FROM DUAL ") _T("\n\r")						 /** 주석2 테스트 **/
+ _T(" WHERE 1 = 1") _T("\n\r")
+ , a,b );
+
+_T("SELECT * FROM DUAL") _T("\n\r")
+_T (")");
+
+
+sql.Format( _T("SELECT SUM(ABC) AS SR2 ") _T("\n\r") //주석 테스트
+ _T("  FROM DUAL ") _T("\n\r")						 /** 주석2 테스트 **/
+ _T(" WHERE 2 = 2") _T("\n\r")
+ , a,b );
+
+str.Format(_T("Left-justified integer: %.6d\n") _T("\n\r") , 35);
+
+"right".Mid( 3,3 );
+"left".Left( 5 );

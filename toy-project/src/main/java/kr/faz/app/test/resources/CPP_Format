@@ -1,0 +1,11 @@
+str.Format(
+	_T("Left-justified integer: %.6d\n") _T("\n\r") _T("\n\r")
+	Mask01(_T("abcd") , 1,2,3) 
+	Mask02(_T("abcd") , 1,2,3) 
+	Mask03(_T("abcd") , 1,2,3) 
+	,35,35 ) ; 
+_T("\n\r")
+_T("\n\r")
+_T("\n\r")
+_T("\n\r")
+, _T("\n\r") 35);
