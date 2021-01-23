@@ -32,7 +32,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringEscapeUtils;
 import org.apache.ibatis.logging.Log;
 
 /**
@@ -43,6 +42,11 @@ import org.apache.ibatis.logging.Log;
  * @author Eduardo Macarron
  */
 public abstract class BaseJdbcLogger {
+
+	public static final String COLOR_TYPE = "_color_type";
+	public static final String COLOR_CODE = "_color_code";
+	public static final String COLOR_REPLACE = "_color_replace";
+	protected int resultSetLoggerCount = 30;
 
 	protected static final Set<String> SET_METHODS = new HashSet<String>();
 	protected static final Set<String> EXECUTE_METHODS = new HashSet<String>();
@@ -108,21 +112,42 @@ public abstract class BaseJdbcLogger {
 		}
 
 		String rule = "";
-		//File ruleFile = new File("C:\\STS\\sts-3.9.11.RELEASE\\WSC\\toy-projects\\sql.color.rule");
 		File ruleFile = new File("/STS/sql.color.rule");
 		try {
 			rule = FileUtils.readFileToString(ruleFile, "UTF-8");
 		} catch (IOException e) {
-
 			e.printStackTrace();
+			return;
 		}
 
 		String[] rules = rule.split("\n");
 		for ( String s : rules ) {
+			if ( s == null || s.trim().length() == 0 || s.trim().startsWith("#")) {
+				continue;
+			}
 			String[] x = s.split("[:]");
-			ruleSet.put(x[0] , x[1].trim());
+			String prefixKey = x[0].trim();
+			//resultSetLogger 에서 출력할 갯수.
+			if ( "RESULT_SET_LOGGER_COUNT".equals( prefixKey ) ) {
+				try {
+					int rCnt = Integer.parseInt( x[1].trim() ) ;
+					resultSetLoggerCount = rCnt;
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				continue;
+			}
+			try {
+				ruleSet.put(prefixKey  , prefixKey );//key 찾기용.
+				ruleSet.put(prefixKey + COLOR_TYPE , x[1].trim() );//컬러 type
+				ruleSet.put(prefixKey + COLOR_CODE , x[2].trim() );//컬러 code
+				ruleSet.put(prefixKey + COLOR_REPLACE  , x[3].trim() );//보여주고 싶은 형태...
+			} catch (Exception e) {
+				System.err.println("-mybatis color error key word - " + prefixKey);
+			}
 		}
 	}
+
 	protected Object getColumn(Object key) {
 		return columnMap.get(key);
 	}
@@ -254,13 +279,20 @@ public abstract class BaseJdbcLogger {
 
 
 	private String setSQLColorApply(String sql) {
+		if (ruleSet.size() == 0 )
+			return sql;
+
 		String delim = "()\r\n\t. ";
 		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(sql, delim, true);
 		while(st.hasMoreElements()) {
 			String v = (String) st.nextElement();
 			if (v.length() > 1 && ruleSet.containsKey(v.toUpperCase()))  {
-				v = StringEscapeUtils.unescapeJava( ruleSet.get(v.toUpperCase() ) )  +  "\033[0m";
+				String key = v.toUpperCase();
+				String colorType = ruleSet.get(key + COLOR_TYPE );
+				String colorCode = ruleSet.get(key + COLOR_CODE);
+				String replaceData = ruleSet.get(key + COLOR_REPLACE);
+				v =   "\033[" + colorType + ";" + colorCode + "m" + replaceData  +  RESET;
 			}
 			sb.append(v);
 		}
@@ -327,5 +359,5 @@ public abstract class BaseJdbcLogger {
 		return new String(buffer);
 	}
     // Reset
-    public static final String RESET = "\033[0m";  // Text Reset
+    public static final String RESET = "\033[0m  ";  // Text Reset
 }
