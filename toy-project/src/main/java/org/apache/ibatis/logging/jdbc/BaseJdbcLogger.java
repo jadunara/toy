@@ -46,7 +46,7 @@ public abstract class BaseJdbcLogger {
 	public static final String COLOR_TYPE = "_color_type";
 	public static final String COLOR_CODE = "_color_code";
 	public static final String COLOR_REPLACE = "_color_replace";
-	protected int resultSetLoggerCount = 30;
+	protected static int resultSetLoggerCount = 30;
 
 	protected static final Set<String> SET_METHODS = new HashSet<String>();
 	protected static final Set<String> EXECUTE_METHODS = new HashSet<String>();
