@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Vue router example</title>
+</head>
+<body>
+    <div id="app">
+        <!-- 네비게이션을 위해 router-link 컴포넌트를 사용합니다. -->
+        <!-- 구체적인 속성은 `to` prop을 이용합니다. -->
+        <!-- 기본적으로 `<router-link>`는 `<a>` 태그로 렌더링됩니다.-->
+        <router-link to="/foo">Go to Foo</router-link>
+        <router-link to="/bar">Go to Bar</router-link>
+        <router-link to="/user">Go to User</router-link>
+
+        <h1>router base </h1>
+        <router-view class="view one"></router-view>
+        <h1>router name a </h1>
+        <router-view class="view two" name="a"></router-view>
+        <h1>router name a </h1>
+        <router-view class="view three" name="b"></router-view>
+    </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://unpkg.com/vue-router@3.5.1/dist/vue-router.js"></script>
+<script src="vue.base.router.js" type="text/javascript"></script>
+</body>
+</html>
