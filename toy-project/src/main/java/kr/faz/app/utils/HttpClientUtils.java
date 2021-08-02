@@ -58,7 +58,8 @@ public class HttpClientUtils {
 			logger.error("[HttpClientUtil][upload][url=" + url + "]" + e.getMessage(), e);
 		} finally {
 			try {
-				httpclient.close();
+				if ( httpclient != null)
+					httpclient.close();
 			} catch (IOException e) {
 				logger.error("[HttpClientUtil][upload][url=" + url + "]" + e.getMessage(), e);
 			}
