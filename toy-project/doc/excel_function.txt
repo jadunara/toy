@@ -1,0 +1,2 @@
+#Excel Camel Case
+=LOWER(LEFT(A1)) & MID(SUBSTITUTE(PROPER(A1),"_",""),2,LEN(A1))
