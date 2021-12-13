@@ -62,8 +62,8 @@ public class ConsoleColorsExample {
 		}
 		System.out.println(sql);
 
-		//setRule(rule);
-		//new ConsoleColorsExample().process( sql );
+		setRule(rule);
+		new ConsoleColorsExample().process( sql );
 	}
 
 	public static List<String> regex( String s, String p){
@@ -111,14 +111,15 @@ public class ConsoleColorsExample {
 //		System.out.println( sql.replaceAll("SELECT",   ConsoleColors.BLUE_BACKGROUND  + ConsoleColors.BLUE_BACKGROUND_BRIGHT +  " SELECT" + ConsoleColors.RESET) );
 //		System.out.println( sql.replaceAll("SELECT",   ConsoleColors.BLUE_BACKGROUND_BRIGHT  + ConsoleColors.RED +  " SELECT" + ConsoleColors.RESET) );
 //		System.out.println( sql.replaceAll("SELECT",   "\033[5;120m" +  " SELECT" + ConsoleColors.RESET) );
-		for ( int i = 31 ; i < 48 ; i++) {
-			//printColor(i);
+		for ( int i = 29 ; i < 48 ; i++) {
+			printColor(i);
 		}
-		for ( int i = 90 ; i < 110 ; i++) {
-			//printColor(i);
+		for ( int i = 80 ; i < 110 ; i++) {
+			printColor(i);
 		}
-		System.out.println("\033[0;103m".length());
+		//System.out.println("\033[0;103m".length());
 		//ConsoleColorsExample.main1(null);
+		System.out.println(System.lineSeparator().toCharArray()  );
 	}
 	public static void printColor(int i) {
 		System.out.println(String.format("%3s",  i )
