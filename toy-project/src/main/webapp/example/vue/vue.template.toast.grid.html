@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Vue.js wrapper component example (jquery plugin: select2)</title>
+<!-- Delete ".min" for console warnings in development -->
+<link href="https://unpkg.com/select2@4.0.3/dist/css/select2.min.css" rel="stylesheet">
+<link rel="stylesheet" href="../../css/tui-grid.4.10.0.css" />
+<script src="../../js/vuejs/vue.2.6.12.js"></script>
+<script src="../../js/vuejs/vue-router.3.5.1.js"></script>
+<script src="https://unpkg.com/jquery"></script>
+<script src="https://unpkg.com/select2@4.0.3"></script>
+<script type="text/javascript" src="../../js/toast/tui-grid.4.10.0.js"></script>
+<style>
+html, body { font: 13px/18px sans-serif; }
+select { min-width: 300px; }
+</style>
+</head>
+<body>
+	<div id="app">
+		hi
+	</div>
+
+	<!-- using string template here to work around HTML <option> placement restriction -->
+	<script type="text/x-template" id="demo_template2">
+      <div>
+		<h1>test2-1</h1>
+        <p>Selected: {{ selected }}</p>
+		<h1>test2-2</h1>
+  			<!-- <div id="tuiGrid" ref="tuiGrid"
+    			:data="gridProps.data"
+			    :columns="gridProps.columns"
+  				/> -->
+		<div>
+				  <grid
+				  :data="gridProps.data"
+				  :columns="gridProps.columns"
+				  :options="gridProps.options"
+				  :theme="gridProps.myTheme"
+				  @check="onCheck"
+				  @uncheck="onUnCheck"
+				  :rowHeaders="gridProps.rowHeaders"
+				  :columnOptions="gridProps.columnOptions"
+				></grid>
+		</div>
+      </div>
+    </script>
+	<script type="text/javascript" src="vue.toast.tmp.js"></script>
+</body>
+</html>
