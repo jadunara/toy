@@ -21,7 +21,7 @@ public class PDFReaderExample {
 		System.out.println("start!");
 
 		PDFReaderExample pdfr = new PDFReaderExample();
-		File file = new File("D:\\sample file\\기관운영업무추진비(건설국장).pdf");
+		File file = new File("D:\\sample_file\\기관운영업무추진비(건설국장).pdf");
 		try {
 //			String text = pdfr.read();
 //			System.out.println(text);
