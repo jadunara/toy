@@ -111,7 +111,7 @@ public class BasicFormatterImpl {
         String lastToken;
         String token;
         /****
-         * 토큰의 소문자. 
+         * 토큰의 소문자.
          */
         String lcToken;
 
@@ -233,7 +233,7 @@ public class BasicFormatterImpl {
         private void on() {
             afterOn = true;
             newline();
-            appendWhiteSpace(1);//n번 space 로 밀어준다. 
+            appendWhiteSpace( 1  );//n번 space 로 밀어준다.
             out(true);
             beginLine = false;
             indent++;
@@ -248,7 +248,7 @@ public class BasicFormatterImpl {
         private void misc() {
         	if ( MISC_UPPER_CASE.contains(lcToken)) {
         		out(true);
-        	} else if ( afterBetween && "and".equals(lcToken)) {//between 다음 단어중에서 and가 왔을때 대문자로 치환한다. 
+        	} else if ( afterBetween && "and".equals(lcToken)) {//between 다음 단어중에서 and가 왔을때 대문자로 치환한다.
         		out(true);
 
         	} else if ( beginLine && "select".equals(lastToken) ) {//처음 시작할때...5칸을 밀어준다.
@@ -489,7 +489,7 @@ public class BasicFormatterImpl {
         System.out.println(sql);
 //
 //        sql = "SELECT * FROM MY_TABLE1, MY_TABLE2, (SELECT * FROM MY_TABLE3) LEFT OUTER JOIN MY_TABLE4 " +
-//                " WHERE ID = (SELECT MAX(ID) FROM MY_TABLE5 WHERE AX = BX AND BQ = AQ) AND ID2 IN (SELECT * FROM MY_TABLE6)";		
+//                " WHERE ID = (SELECT MAX(ID) FROM MY_TABLE5 WHERE AX = BX AND BQ = AQ) AND ID2 IN (SELECT * FROM MY_TABLE6)";
 //        sql = xx.format(sql);
 //        System.out.println(sql);
 		
