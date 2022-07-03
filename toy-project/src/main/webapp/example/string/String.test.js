@@ -19,6 +19,9 @@ bar(); // ?
 function test() {
 	//console.clear();
 	var s = "  x한글테스트z " ;
+	var v = "k2";
+	console.log('v2' , _pfx.len(v) );
+	console.log('v3' , _pfx.nvl('s' , v));
 //	console.log("s String.prototype.unbracketize " + String.unbracketize(s) );
 //	console.log("s String.prototype.unbracketize " + String.prototype.unbracketize(s) );
 //	console.log(String.validBrackets(s));
