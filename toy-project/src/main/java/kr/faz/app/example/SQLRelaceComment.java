@@ -56,7 +56,8 @@ public class SQLRelaceComment {
 			System.out.println(list.get(i));
 			String key = "@@@@@@@" + i + "@@@@@@@";
 			String val = list.get(i);
-			s = StringUtils.replace(s, val , key);
+			int sPos = s.indexOf(val);
+			s = s.substring(0, sPos )  + key + s.substring( sPos + val.length() );
 			map.put(key , val);
 		}
 		return s;
