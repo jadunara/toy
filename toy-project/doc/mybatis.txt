@@ -1,0 +1,5 @@
+--SQL Trim 하지 않게 getSql()
+/src/main/java/org/apache/ibatis/scripting/xmltags/DynamicContext.java
+
+-- forEach Tag 오류시 나오도록 처리
+/src/main/java/org/apache/ibatis/executor/BaseExecutor.java
