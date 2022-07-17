@@ -12,7 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.StringUtils;
 
 public class SQLRelaceComment {
 	public static void main(String[] args) throws IOException {
@@ -26,6 +25,8 @@ public class SQLRelaceComment {
 		Map<String, String> map = new HashMap<String, String>();
 
 		String p = getRegex("MULTI_LINE_COMMENT");
+		System.out.println(sql);
+		sql = removeEmptyLine(sql);
 		List<String> list = regexFindToList(sql, p);
 		sql = fakeComment(sql, map, list);
 		System.out.println("-------------------------------------------------------\n\n");
@@ -35,6 +36,10 @@ public class SQLRelaceComment {
 		System.out.println("-------------------------------------------------------\n\n");
 		System.out.println(sql);
 		System.out.println("result : " + orgSql.equals(sql));
+	}
+
+	public String removeEmptyLine(String s) {
+		return s.replaceAll("(?m)^[ \t]*\r?\n", "");
 	}
 
 	public String getRegex(String t) {
@@ -73,7 +78,9 @@ public class SQLRelaceComment {
 		Iterator<Entry<String, String>> itx = map.entrySet().iterator();
 		while (itx.hasNext()) {
 			Entry<String, String> et = itx.next();
-			s = StringUtils.replaceOnce(s, et.getKey(), et.getValue());
+			//s = StringUtils.replaceOnce(s, et.getKey(), et.getValue());
+			int sPos = s.indexOf( et.getKey());
+			s = s.substring(0, sPos )  + et.getValue() + s.substring( sPos + et.getKey().length() );
 		}
 		return s ;
 	}
