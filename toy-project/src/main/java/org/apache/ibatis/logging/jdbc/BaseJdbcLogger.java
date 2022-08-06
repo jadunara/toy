@@ -17,6 +17,7 @@ package org.apache.ibatis.logging.jdbc;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -175,19 +176,23 @@ public abstract class BaseJdbcLogger {
 		}
 		return list;
 	}
+	public String removeEmptyLine(String s) {
+		return s.replaceAll("(?m)^[ \t]*\r?\n", "");
+	}
 	protected String regexFakeReplace(List<String> list, Map<String, String> commentMap, String sql, String prefix) {
 		if ( list.size() != 0 ) {
 			for ( int i = 0 ; i < list.size() ; i++ ) {
 				String k = prefix + "@@@@@" + i + "@@@@@";
 				String v =  list.get(i);
-				sql = sql.replace( v ,  k );
+				int sPos = sql.indexOf(v);
+				sql = sql.substring(0, sPos) + k + sql.substring(sPos + v.length());
 				commentMap.put(k, v);
 			}
 		}
 		return sql;
 	}
 
-	private String repareReplace(String sql, Map<String, String> map) {
+	private String repareReplace(String s, Map<String, String> map) {
 		Iterator<Entry<String, String>> itx = map.entrySet().iterator();
 		while (itx.hasNext()) {
 			Map.Entry<java.lang.String, java.lang.String> entry = itx.next();
@@ -199,17 +204,33 @@ public abstract class BaseJdbcLogger {
 			}else if ( k.startsWith("_SINGLE_QUOTE_")) {
 				sColor = "\033[3;95m";
 			}
-			sql = sql.replace( k ,  sColor + v + RESET );
+			//s = s.replace( k ,  sColor + v + RESET );
+			
+			int sPos = s.indexOf( k );
+			s = s.substring(0, sPos) + sColor + v + RESET + s.substring(sPos + k.length());
+			
 		}
-		return sql;
+		return s;
 	}
 
+	public static void main(String[] args) {
+		PreparedStatementLogger bj = new  PreparedStatementLogger(null, null, 0, null);
+		String file = "C:\\STS\\sts-3.9.11.RELEASE\\WSC\\toy-projects\\src\\main\\resources\\sample.sql";
+		try {
+			String sql = FileUtils.readFileToString(new File(file) , "UTF-8");
+			sql = bj.getParameterValueString(sql);
+			System.out.println(sql);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
 	protected String getParameterValueString(String sql) {
 		setRule();
 		if ((sql == null) || ("".equals(sql)))
 			return "";
 
-		String p = "\\/\\*(.*)\\*\\/";
+		String p = "/\\*[^*]*\\*+(?:[^/*][^*]*\\*+)*/";
 		Map<String, String> commentMap = new LinkedHashMap<String, String>();
 		List<String> list = regex(sql, p);
 
@@ -226,6 +247,7 @@ public abstract class BaseJdbcLogger {
 		 ******************************/
 		sql = regexFakeReplace( list , commentMap , sql , "_SINGLE_QUOTE_");
 
+		sql = removeEmptyLine(sql);
 		int questMarkPos = 0;
 
 		try {
@@ -237,7 +259,7 @@ public abstract class BaseJdbcLogger {
 				String sval = "";
 				sql = s ;
 				if (value == null) {
-					sval = "null"  ;
+					sval = "NULL /** null value **/"  ;
 
 				} else {
 					String paramType = value.getClass().getName();
