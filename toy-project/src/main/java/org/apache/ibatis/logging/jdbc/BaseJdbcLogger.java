@@ -249,6 +249,7 @@ public abstract class BaseJdbcLogger {
 
 		sql = removeEmptyLine(sql);
 		int questMarkPos = 0;
+		boolean hasSqlLineComment = sql.indexOf("--") != -1 ;
 
 		try {
 			for (int i = 0; i < this.columnValues.size(); i++) {
@@ -290,12 +291,24 @@ public abstract class BaseJdbcLogger {
 
 			sql = setSQLColorApply(sql);
 			sql = repareReplace(sql, commentMap);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
 		commentMap.clear();
 		commentMap= null;
+		if ( hasSqlLineComment ) {
+			String msg = ""
+					+ "\n/***********************************************************************************************"
+					+ "\n*"
+					+ "\n* SQL Line Comment(--) exists  "
+					+ "\n*"
+					+ "\n***********************************************************************************************/\n"
+					+ sql
+					;
+			throw new RuntimeException(msg);
+		}
 		return sql;
 	}
 
