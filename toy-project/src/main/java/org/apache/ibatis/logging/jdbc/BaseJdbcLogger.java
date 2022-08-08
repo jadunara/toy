@@ -201,14 +201,14 @@ public abstract class BaseJdbcLogger {
 			String sColor = "";
 			if ( k.startsWith("_COMMENT_")) {
 				sColor = "\033[0;32m";
+				v += RESET;
 			}else if ( k.startsWith("_SINGLE_QUOTE_")) {
 				sColor = "\033[3;95m";
+				v += RESET + " /** hard coding **/";
 			}
-			//s = s.replace( k ,  sColor + v + RESET );
-			
+
 			int sPos = s.indexOf( k );
-			s = s.substring(0, sPos) + sColor + v + RESET + s.substring(sPos + k.length());
-			
+			s = s.substring(0, sPos) + sColor + v + s.substring(sPos + k.length());
 		}
 		return s;
 	}
@@ -220,6 +220,7 @@ public abstract class BaseJdbcLogger {
 			String sql = FileUtils.readFileToString(new File(file) , "UTF-8");
 			sql = bj.getParameterValueString(sql);
 			System.out.println(sql);
+			System.out.println("\033[0;103m".length());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -258,12 +259,13 @@ public abstract class BaseJdbcLogger {
 				String s = sql.substring(0, questMarkPos);
 				String e = sql.substring(questMarkPos + 1);
 				String sval = "";
+				String paramType = "";
 				sql = s ;
 				if (value == null) {
 					sval = "NULL /** null value **/"  ;
 
 				} else {
-					String paramType = value.getClass().getName();
+					paramType = value.getClass().getName();
 
 					if (paramType.indexOf("java.lang.String") != -1) {
 						sval = "'" + ((String) value).replaceAll("'", "''") + "'";
@@ -275,7 +277,12 @@ public abstract class BaseJdbcLogger {
 						sval = "'" + value.toString()  + "'"    ;
 
 					} else if ((paramType.indexOf("Boolean") != -1)  ) {
-						sval = value.toString();
+						Boolean bo = (Boolean)value;
+						if ( bo ) {
+							sval = 1 + " /** true **/";
+						} else {
+							sval = 0 + " /** false **/";
+						}
 
 					} else if (("null".indexOf(paramType) != -1) || (paramType == null)) {
 						sval =  " "+ null +" ";
@@ -284,9 +291,11 @@ public abstract class BaseJdbcLogger {
 						sval = value.toString();
 					}
 
-					sql = s + "\033[0;103m" + sval + RESET +  " /** " + paramType + " **/ " +  e ;
-					questMarkPos += sval.length() + paramType.length() + 10 /** 주석 처리 부분 **/ + 8 /** escape 문자 부분.**/ ;
 				}
+				paramType = " /** " + paramType + " **/ ";
+				sval = "\033[0;103m" + sval + RESET;
+				sql = s + sval +   paramType  +  e ;
+				questMarkPos += sval.length() + paramType.length()  ;
 			}
 
 			sql = setSQLColorApply(sql);
